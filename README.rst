@@ -24,7 +24,7 @@ Getting Started
 I would highly recommend starting off with a Python distribution from Anaconda_. It is great out of the
 box and helps manage Python dependencies. 
 
-Quick note: I would recommend getting the most recent version of Python offered. However, I 
+Quick note: In most cases, it is best to go with the most recent version of Python offered. However, I 
 have heard that there are some potential issues running Python 3.6 with Pyspark (I will try to
 find a reference for that). Just to be on the safe side, I would create a conda virtual 
 environment using Python 3.5::
