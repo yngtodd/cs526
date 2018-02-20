@@ -32,7 +32,7 @@ environment using Python 3.5::
     conda create -n pyspark python=3.5
 
 The above line will create a conda environment named pyspark using Python 3.5. You can name
-the environment however you like. Once you have that, stepping into that environment is as
+the environment however you like. With that, stepping into that environment is as
 simple as::
 
     source activate pyspark
