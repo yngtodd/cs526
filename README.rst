@@ -21,7 +21,7 @@ learning. And it is just plain fun.
 Getting Started
 ---------------
 
-I would highly recommend starting off with a Python distribution from Anaconda_. It is great out of the 
+I would highly recommend starting off with a Python distribution from Anaconda_. It is great out of the
 box and helps manage Python dependencies. 
 
 Quick note: I would recommend getting the most recent version of Python offered. However, I 
@@ -37,6 +37,9 @@ simple as::
 
     source activate pyspark
 
+Once you have your environment setup, grab the rest you need with the following::
+
+    pip install -r requirements.txt
 
 
 .. _Anaconda: https://www.anaconda.com/download/#linux
