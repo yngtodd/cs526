@@ -13,8 +13,9 @@ Spark Notes for CS526
 =====================
 
 A bit of information for navigating Spark. The code examples in both the notebooks and modules
-are all Python, as I am more familiar with that language compared with Scala. While Scala seems
-great, I would personally recommend Python as it is the language de facto for most of machine 
+are all written Python, as I am more familiar with that language compared with Scala. 
+While Scala seems
+great, I would personally recommend Python as it has such a large community of developers focused on machine 
 learning. And it is just plain fun. 
 
 Getting Started
