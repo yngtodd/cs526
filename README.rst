@@ -2,7 +2,7 @@
 
     <embed>
         <p align="center">
-            <img width="300" src="https://github.com/yngtodd/nuclei/blob/master/img/nuclei.png">
+            <img width="300" src="https://github.com/yngtodd/cs526/blob/master/img/kirby_spark.png">
         </p>
     </embed>
 
