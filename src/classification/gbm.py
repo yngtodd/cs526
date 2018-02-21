@@ -61,7 +61,8 @@ def main():
 
     # Select (prediction, true label) and compute test error
     evaluator = MulticlassClassificationEvaluator(
-        labelCol="indexedLabel", predictionCol="prediction", metricName="accuracy")
+        labelCol="indexedLabel", predictionCol="prediction", metricName="accuracy"
+    )
 
     accuracy = evaluator.evaluate(predictions)
     print("Test Accuracy = {}".format(accuracy))
