@@ -16,7 +16,7 @@ from skopt import gp_minimize
 #initialize spark session
 spark = SparkSession\
         .builder\
-        .appName("Test")\
+        .appName("Hyperparameter Optimization")\
         .config('spark.sql.warehouse.dir', 'file:///C:/')\
         .getOrCreate()
 
@@ -28,18 +28,21 @@ parser.add_argument('--data', type=str,
     help='Data location.')
 args = parser.parse_args()
 
+# Grab the regression dataset
 data = spark.read.format("libsvm").load(args.data)
 
+# Create training, validation, and test splits
 (train, test) = data.randomSplit([0.8, 0.2])
 (train, val) = train.randomSplit([0.8, 0.2])
 
 def objective(hparams):
+    # New hyperparameter settings from Bayesian optimization
     num_trees, max_depth, max_bins = hparams
     
-    # Train a RandomForest model.
+    # Instantiate a RandomForest model.
     rf = RandomForestRegressor(numTrees=num_trees, maxDepth=max_depth, maxBins=max_bins)
 
-    # Train model.  This also runs the indexer.
+    # Train model. 
     model = rf.fit(train)
 
     # Make predictions.
@@ -56,7 +59,7 @@ def objective(hparams):
 
 def main():
     # Set bounds for random forest's hyperparameters
-    hparams = [(5, 15),   # num_trees
+    hparams = [(2, 25),   # num_trees
                (2, 6),    # max_depth
                (15, 30)]  # max_bins
     
