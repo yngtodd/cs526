@@ -1,5 +1,6 @@
 import pyspark
 import numpy as np
+import argparse
 
 from sklearn.datasets import fetch_mldata
 from sklearn.model_selection import train_test_split
@@ -69,8 +70,12 @@ def create_df(y, X):
 
 
 def main():
+    parser = argparse.ArgumentParser(description='Pyspark Training')
+    parser.add_argument('--data_dir', type=str, default='../../data', help='Data location.')
+    args = parser.parse_args()
+    
     # Get the MNIST data.
-    X, y = load_mnist('/Users/youngtodd/cs526/data')
+    X, y = load_mnist(args.data_dir)
 
     # Create a train and test set split.
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42) 
