@@ -24,7 +24,7 @@ sc = spark.sparkContext
 
 parser = argparse.ArgumentParser(description='Pyspark Training')
 parser.add_argument('--data', type=str,
-    default="../../data/sample_linear_regression_data.txt",
+    default="../../../data/sample_linear_regression_data.txt",
     help='Data location.')
 args = parser.parse_args()
 
