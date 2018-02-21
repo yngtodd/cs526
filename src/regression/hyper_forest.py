@@ -35,7 +35,27 @@ data = spark.read.format("libsvm").load(args.data)
 (train, test) = data.randomSplit([0.8, 0.2])
 (train, val) = train.randomSplit([0.8, 0.2])
 
+
 def objective(hparams):
+    """
+    Objective function to be minimized:
+    Model validation RMSE loss as a function of our model hyperparameters.
+
+    Parameters:
+    ----------
+    * `hparams` [list]
+        Hyperparameter settings determined by Bayesian optimization loop.
+
+    Returns:
+    -------
+    * `rmse` [float]
+        Root mean squared error on the validation set    
+
+    Reference:
+    ---------
+    Bayesian optimization with Scikit-Optimize:
+    https://scikit-optimize.github.io/
+    """
     # New hyperparameter settings from Bayesian optimization
     num_trees, max_depth, max_bins = hparams
     
@@ -73,18 +93,14 @@ def main():
     max_depth = optim_results.x[1]
     max_bins = optim_results.x[2]
     
-    # Train a RandomForest model using best hparams
+    # Instantiate a RandomForest model using best hyperparameter settings
     rf = RandomForestRegressor(numTrees=num_trees, maxDepth=max_depth, maxBins=max_bins)
 
-    # Train model.  This also runs the indexer.
-    print('\nFitting model with optimized hyperparameters...')
+    # Train model. 
     model = rf.fit(train)
 
     # Make predictions.
     predictions = model.transform(test)
-
-    # Select example rows to display.
-    #predictions.select("prediction", "label", "features").show(5)
 
     # Select (prediction, true label) and compute test error
     evaluator = RegressionEvaluator(
