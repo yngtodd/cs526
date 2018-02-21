@@ -1,3 +1,5 @@
 pyspark
 scikit-learn==0.18.2
 sparkit-learn 
+scikit-optimize
+scipy
