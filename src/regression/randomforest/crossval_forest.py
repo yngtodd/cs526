@@ -5,6 +5,7 @@ import argparse
 
 from pyspark.ml.regression import RandomForestRegressor
 from pyspark.ml.evaluation import RegressionEvaluator
+from pyspark.ml.tuning import ParamGridBuilder, TrainValidationSplit
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import udf
@@ -24,7 +25,7 @@ sc = spark.sparkContext
 def main():
     parser = argparse.ArgumentParser(description='Pyspark Training')
     parser.add_argument('--data', type=str, 
-        default="../../data/sample_linear_regression_data.txt",
+        default="../../../data/sample_linear_regression_data.txt",
         help='Data location.')
     args = parser.parse_args()
 
@@ -36,18 +37,28 @@ def main():
     # Train a RandomForest model.
     rf = RandomForestRegressor()
 
-    # Train model.  This also runs the indexer.
-    model = rf.fit(train)
+    paramGrid = ParamGridBuilder()\
+        .addGrid(rf.numTrees, [2, 25]) \
+        .addGrid(rf.maxDepth, [2, 6])\
+        .addGrid(rf.maxBins, [15, 30])\
+        .build()
+
+    tvs = TrainValidationSplit(estimator=rf,
+                               estimatorParamMaps=paramGrid,
+                               evaluator=RegressionEvaluator(labelCol="label", predictionCol="prediction", metricName="rmse"),
+                               # 80% of the data will be used for training, 20% for validation.
+                               trainRatio=0.8)
+    
+    # Run TrainValidationSplit, and choose the best set of parameters.
+    model = tvs.fit(train)
 
     # Make predictions.
     predictions = model.transform(test)
 
-    # Select example rows to display.
-    predictions.select("prediction", "label", "features").show(5)
-
     # Select (prediction, true label) and compute test error
     evaluator = RegressionEvaluator(
-        labelCol="label", predictionCol="prediction", metricName="rmse")
+        labelCol="label", predictionCol="prediction", metricName="rmse"
+    )
 
     rmse = evaluator.evaluate(predictions)
     print("Root Mean Squared Error (RMSE) on test data = %g" % rmse)
