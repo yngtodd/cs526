@@ -1,12 +1,13 @@
 import pyspark
 import numpy as np
+
 from sklearn.datasets import fetch_mldata
 from sklearn.model_selection import train_test_split
 
 from pyspark.ml.classification import LogisticRegression, OneVsRest
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator
-
 from pyspark.ml.linalg import Vectors
+
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import udf
 from pyspark.sql.types import *
