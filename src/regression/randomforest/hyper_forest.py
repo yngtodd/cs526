@@ -1,4 +1,4 @@
-"""To Be Continued..."""
+"""Example of Bayesian Optimization for Model Hyperparameters"""
 import pyspark
 import numpy as np
 import argparse

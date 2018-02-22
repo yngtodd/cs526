@@ -1,4 +1,4 @@
-"""To Be Continued..."""
+"""Random Forest Regression Example"""
 import pyspark
 import numpy as np
 import argparse
