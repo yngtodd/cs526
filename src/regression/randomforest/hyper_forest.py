@@ -85,6 +85,7 @@ def main():
     
     # Run hyperparameter optimization using Gaussian processes
     optim_results = gp_minimize(objective, hparams, n_calls=20, verbose=True, random_state=0)
+    
     print('\nHyperparameter Optimization Results:')
     print('Best validation RMSE = {}'.format(optim_results.fun))
 
@@ -107,6 +108,7 @@ def main():
         labelCol="label", predictionCol="prediction", metricName="rmse")
 
     rmse = evaluator.evaluate(predictions)
+    
     print('\nFinal Results on Test Set with Optimized Hyperparameters:')
     print("Root Mean Squared Error on test set = %g" % rmse)
 
